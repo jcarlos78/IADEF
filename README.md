@@ -1,4 +1,8 @@
-# IADE Project Template
+# IADF Project Template
+
+AIDEF is a framework for disciplined AI-native software engineering.
+
+Specification-driven development, agent skills, MCP integration, and human-in-command governance built into the workflow.
 
 A pre-configured **Integrated Agentive Development Environment (IADE)** for disciplined vibe coding with AI assistants (Claude Code, Cursor, Windsurf, Codex, etc.).
 
