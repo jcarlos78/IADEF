@@ -1,4 +1,4 @@
-# IADF Project Template
+# IADEF Project Template
 
 AIDEF is a framework for disciplined AI-native software engineering.
 
