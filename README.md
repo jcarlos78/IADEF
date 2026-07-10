@@ -1,6 +1,6 @@
-# IADEF Project Template
+# GAIDE Project Template
 
-AIDEF is a framework for disciplined AI-native software engineering.
+GAIDE is a framework for disciplined AI-native software engineering.
 
 Specification-driven development, agent skills, MCP integration, and human-in-command governance built into the workflow.
 
