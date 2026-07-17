@@ -35,14 +35,14 @@ An agent that wrote the code is biased when evaluating it.
 - [x] Rework `code-reviewer` skill to run as a subagent with a clean context (receives only diff + spec, never the implementation conversation) — subagent defined in `.claude/agents/code-reviewer.md`
 - [x] "Sprint contracts": add a *verifiable done-criteria* section to `specs/template/plan.md`, agreed before implementation, checked one by one at review
 
-## Phase 4 — Empirical verification
+## Phase 4 — Empirical verification ✅
 
 "Tests pass" ≠ "the feature works". The agent must observe the running application.
 
-- [ ] Add Playwright MCP as a commented-out option in `.mcp.json`
-- [ ] New `verifier` skill: exercise the feature end-to-end as a user would, against the spec's acceptance criteria
-- [ ] `PostToolUse` hook running lint/tests after edits (auto-detect project type; no-op when unconfigured)
-- [ ] `Stop` hook: warn when the agent ends a turn with failing tests or a diff without a matching spec
+- [x] Add Playwright MCP as a disabled option in `.mcp.json` (`_playwright`, underscore convention)
+- [x] New `verifier` skill: exercise the feature end-to-end as a user would, against the spec's acceptance criteria
+- [x] `PostToolUse` hook: per-file syntax checks after edits (`check-edited-file.sh`; sh/json/py out of the box, extend per stack)
+- [x] `Stop` hook: block ending a turn with uncommitted changes and a failing test suite (`check-before-stop.sh`)
 
 ## Phase 5 — Harness hygiene
 
@@ -58,3 +58,4 @@ Guardrails have expiry dates.
 - **2026-07-17 — Phase 1:** implemented in full; `PROGRESS.md` and the session protocol from Phase 2 were pulled forward.
 - **2026-07-17 — Phase 2:** completed — task status lifecycle in the SDD templates, `init.sh` session bootstrap. Decision: `PROGRESS.md` is local-only (gitignored), commits carry no AI attribution.
 - **2026-07-17 — Phase 3:** completed — `code-reviewer` split into orchestrating skill + clean-context subagent (`.claude/agents/`); sprint contract section in plan template and example.
+- **2026-07-17 — Phase 4:** completed — `verifier` skill, `_playwright` MCP option, PostToolUse per-file checks, Stop hook gating on red tests.

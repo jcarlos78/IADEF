@@ -28,6 +28,11 @@
         "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
       }
     },
+    "_playwright": {
+      "_doc": "Browser automation for empirical verification (see the verifier skill): the agent exercises the running app end-to-end and takes screenshots before marking criteria as verified. Enable by removing the leading underscore.",
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    },
     "_internal-api": {
       "_doc": "Connector for an internal organization API. Adapt to your project's conventions.",
       "command": "node",
