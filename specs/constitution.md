@@ -76,6 +76,12 @@ Deleting or weakening a test, or removing/re-marking a task, to make work *appea
 
 ---
 
+## Note — The harness has an expiry date
+
+The guardrails in this repository (hooks, permissions, skills, scaffolding) are calibrated to the capabilities of current AI models. **Whenever the project adopts a new model generation, re-examine the harness**: strip pieces that are no longer load-bearing (over-scaffolding holds better models back) and add pieces that newly-possible capabilities warrant. Changes go through the normal mechanism — an ADR. This note creates the trigger; the ADR process already provides the path.
+
+---
+
 ## How to modify this constitution
 
 1. Propose the change in a dedicated PR, with no other changes in the same PR.
