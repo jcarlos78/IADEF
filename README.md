@@ -18,11 +18,13 @@ Three native amplifiers wired up and ready:
 
 ## Structure
 
-```
+```text
 .
 ├── .claude/
-│   ├── settings.json          Permissions and model
+│   ├── settings.json          Permissions, hooks, and model
 │   ├── CLAUDE.md              Project briefing (auto-loaded by the agent)
+│   ├── hooks/                 Deterministic enforcement scripts
+│   │   └── block-secrets.sh   Blocks secrets from entering the repo
 │   └── skills/                Available skills
 │       ├── spec-writer.md     Writes SDD specs
 │       ├── code-reviewer.md   Reviews the current diff
@@ -35,7 +37,9 @@ Three native amplifiers wired up and ready:
 │   ├── template/              Spec / plan / tasks templates
 │   └── example-feature/       Complete example (spec → plan → tasks)
 ├── docs/                      Project documentation
-│   └── adr/                   Architecture Decision Records
+│   ├── adr/                   Architecture Decision Records
+│   └── harness-roadmap.md     Phased harness engineering checklist
+├── PROGRESS.md                Session log (local only, gitignored)
 ├── src/                       Source code (empty by design)
 ├── tests/                     Tests
 ├── LICENSE                    MIT
@@ -71,11 +75,30 @@ rm -rf .git && git init
 
 **Don't ask for code before writing a spec.** Use the `spec-writer` skill:
 
-```
+```text
 /spec-writer I want to add: users can export their history as CSV
 ```
 
 The skill walks you through: **spec → plan → tasks → implementation**, with a human gate at each step.
+
+## The harness: what GAIDE uses and why
+
+GAIDE applies **harness engineering** — the discipline of shaping the environment an AI agent operates in, popularized by Anthropic's work on [long-running agent harnesses](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) and [harness design](https://www.anthropic.com/engineering/harness-design-long-running-apps). The core insight: **instructions degrade, mechanisms don't**. An agent under context pressure will forget or rationalize away a rule written in prose; it cannot ignore a hook that rejects its tool call.
+
+Each piece of the template exists for a specific failure mode of AI-assisted development:
+
+| Mechanism | Failure mode it prevents |
+| --- | --- |
+| **Constitution** (`specs/constitution.md`) | Knowledge about "how we work here" living only in chat history |
+| **Specs** (`specs/`) | Drift between what the app does and what people believe it does |
+| **Hooks** (`.claude/hooks/`) | The agent violating critical rules (e.g. committing secrets) under pressure — enforcement is deterministic, not trust-based |
+| **Deny permissions** (`.claude/settings.json`) | The agent reading credentials or running destructive commands, even accidentally |
+| **`PROGRESS.md`** session log | Each session starting blind — context windows die, durable artifacts don't |
+| **ADRs** (`docs/adr/`) | Re-litigating settled decisions; losing the *why* behind the architecture |
+| **Skills** (`.claude/skills/`) | Reinventing procedures ad hoc, with quality varying per session |
+| **Principle 9** (tests are load-bearing) | The agent editing tests or task lists to make work *appear* done — a failure mode Anthropic observed directly in long-running agents |
+
+The rollout of these practices is phased and tracked in [`docs/harness-roadmap.md`](docs/harness-roadmap.md) — that checklist is itself a harness artifact: it survives context resets, so any session knows what's done and what's next.
 
 ## Philosophy
 

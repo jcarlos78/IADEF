@@ -21,14 +21,20 @@
 
 ## Relevant folder structure
 
-```
+```text
 .
-├── .claude/                IADE agent configuration
+├── .claude/                IADE agent configuration (settings, hooks, skills)
 ├── specs/                  SDD specs — source of truth for behavior
 ├── docs/adr/               Architecture Decision Records
+├── PROGRESS.md             Session log — read at start, update at end
 ├── src/                    Source code
 └── tests/                  Tests
 ```
+
+## Session protocol
+
+- **At session start:** read `PROGRESS.md` and the recent `git log` to understand where the last session left off. If the previous session left something broken, fix that before starting new work. `PROGRESS.md` is local and gitignored — if it doesn't exist yet, create it (title + dated entries with done / next / known issues, newest first).
+- **At session end:** append an entry to `PROGRESS.md` (done / next / known issues).
 
 ## Mandatory operating principles
 
@@ -38,6 +44,7 @@ Before any code change, the agent MUST:
 2. **Check whether a spec exists** for the feature at `specs/<feature>/spec.md`.
 3. **If no spec exists**, propose writing one using the `spec-writer` skill before coding.
 4. **Follow the SDD flow**: spec → plan → tasks → implementation.
+5. **Never edit tests or task lists to make work appear done** (Constitution Principle 9).
 
 ## Code conventions
 
@@ -62,6 +69,7 @@ Before any code change, the agent MUST:
 ## Available skills
 
 See `.claude/skills/`:
+
 - `spec-writer` — write SDD specs
 - `code-reviewer` — review the current diff
 - `adr-writer` — record architectural decisions

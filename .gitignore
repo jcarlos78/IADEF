@@ -11,6 +11,9 @@
 .claude/settings.local.json
 .claude/.credentials.json
 
+# Local session log — working memory, not repo content
+PROGRESS.md
+
 # Environment / secrets
 .env
 .env.local
