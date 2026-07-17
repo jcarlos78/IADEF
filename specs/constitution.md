@@ -68,6 +68,14 @@ Operational errors are not swallowed. Logs at appropriate levels, monitoring whe
 
 ---
 
+## Principle 9 — Tests and task lists are load-bearing
+
+Deleting or weakening a test, or removing/re-marking a task, to make work *appear* done is forbidden. A failing test is fixed by fixing the code or — if the test itself is wrong — by changing it in a dedicated commit that explains why. Task status only moves forward when the work actually happened.
+
+**Why:** Anthropic's harness engineering work found that long-running agents, under pressure to show progress, edit tests and task lists instead of the code. Tests and task lists are the external record of truth; if they can be quietly rewritten, every other principle loses its anchor.
+
+---
+
 ## How to modify this constitution
 
 1. Propose the change in a dedicated PR, with no other changes in the same PR.
