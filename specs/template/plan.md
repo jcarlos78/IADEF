@@ -36,6 +36,13 @@ Proposed order (each item becomes an atomic task in `tasks.md`):
 
 - Risk: <technical, not spec-level> | Mitigation: ...
 
+## Sprint contract
+
+> Agreed **before** implementation starts, between whoever implements and whoever reviews (human or the `code-reviewer` subagent). This is the operational meaning of "done": each item is an **observable behavior** with a concrete way to verify it — a command, a URL to hit, a user action to perform. The reviewer checks the items one by one; a failure comes back as detailed feedback, not as a renegotiation. Changing the contract mid-implementation requires re-approving the plan.
+
+- [ ] `<observable behavior>` — verify by: `<command / URL / user action>`
+- [ ] `<observable behavior>` — verify by: ...
+
 ## Definition of Done
 
 - [ ] All tests derived from the spec pass

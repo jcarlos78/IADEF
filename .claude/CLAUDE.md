@@ -71,7 +71,7 @@ Before any code change, the agent MUST:
 See `.claude/skills/`:
 
 - `spec-writer` — write SDD specs
-- `code-reviewer` — review the current diff
+- `code-reviewer` — review the current diff (delegates to the clean-context subagent in `.claude/agents/code-reviewer.md`; never pass it the implementation conversation)
 - `adr-writer` — record architectural decisions
 - `test-generator` — generate tests from a spec
 

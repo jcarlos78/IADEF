@@ -28,12 +28,12 @@ Give agents durable memory of the *work* (specs already cover the *product*).
 - [x] Evolve `specs/template/tasks.md` to per-task status tracking (`pending | in-progress | done | verified`)
 - [x] `init.sh` template — environment bring-up + health check, run at session start to catch broken state early
 
-## Phase 3 — Role separation with clean contexts
+## Phase 3 — Role separation with clean contexts ✅
 
 An agent that wrote the code is biased when evaluating it.
 
-- [ ] Rework `code-reviewer` skill to run as a subagent with a clean context (receives only diff + spec, never the implementation conversation)
-- [ ] "Sprint contracts": add a *verifiable done-criteria* section to `specs/template/plan.md`, agreed before implementation, checked one by one at review
+- [x] Rework `code-reviewer` skill to run as a subagent with a clean context (receives only diff + spec, never the implementation conversation) — subagent defined in `.claude/agents/code-reviewer.md`
+- [x] "Sprint contracts": add a *verifiable done-criteria* section to `specs/template/plan.md`, agreed before implementation, checked one by one at review
 
 ## Phase 4 — Empirical verification
 
@@ -57,3 +57,4 @@ Guardrails have expiry dates.
 
 - **2026-07-17 — Phase 1:** implemented in full; `PROGRESS.md` and the session protocol from Phase 2 were pulled forward.
 - **2026-07-17 — Phase 2:** completed — task status lifecycle in the SDD templates, `init.sh` session bootstrap. Decision: `PROGRESS.md` is local-only (gitignored), commits carry no AI attribution.
+- **2026-07-17 — Phase 3:** completed — `code-reviewer` split into orchestrating skill + clean-context subagent (`.claude/agents/`); sprint contract section in plan template and example.

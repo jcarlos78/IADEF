@@ -43,6 +43,15 @@ For each relevant decision, indicate whether it requires an ADR:
 - **Risk:** special characters (accents, commas inside fields) can break parsers — **Mitigation:** RFC 4180 quoting + tests with problematic strings
 - **Risk:** signed link could be indexed by bots or leak via referrer — **Mitigation:** `X-Robots-Tag: noindex`, `Referrer-Policy: no-referrer`
 
+## Sprint contract
+
+> Agreed before implementation; the reviewer checks each item one by one.
+
+- [ ] Authenticated user downloads a CSV of their own history for a chosen date range — verify by: log in, Settings > Export data, pick range, download opens in Excel/LibreOffice
+- [ ] Unauthenticated request is rejected — verify by: `curl -i /api/exports/history` returns `401`
+- [ ] No cross-tenant data in the export — verify by: export as user A, grep the CSV for user B's records
+- [ ] Volumes > 10,000 rows go async and arrive by email — verify by: trigger an export on a seeded large account, receive email, signed link works once and expires in 24h
+
 ## Definition of Done
 
 - [ ] All 9 spec criteria have green tests

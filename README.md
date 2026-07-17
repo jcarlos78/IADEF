@@ -25,6 +25,8 @@ Three native amplifiers wired up and ready:
 │   ├── CLAUDE.md              Project briefing (auto-loaded by the agent)
 │   ├── hooks/                 Deterministic enforcement scripts
 │   │   └── block-secrets.sh   Blocks secrets from entering the repo
+│   ├── agents/                Subagents with clean contexts
+│   │   └── code-reviewer.md   Independent reviewer (sees only diff + docs)
 │   └── skills/                Available skills
 │       ├── spec-writer.md     Writes SDD specs
 │       ├── code-reviewer.md   Reviews the current diff
@@ -97,6 +99,8 @@ Each piece of the template exists for a specific failure mode of AI-assisted dev
 | **`PROGRESS.md`** session log | Each session starting blind — context windows die, durable artifacts don't |
 | **`init.sh`** session bootstrap | Building on top of broken inherited state — every session proves the app runs *before* new work |
 | **Task status lifecycle** (`specs/template/tasks.md`) | "Done" meaning "I wrote code" — `done` requires passing tests, `verified` requires independent checking against the spec |
+| **Clean-context review** (`.claude/agents/code-reviewer.md`) | Self-review bias — the context that wrote the code contains the rationalizations that produced its bugs, so the reviewer sees only the diff and the docs |
+| **Sprint contracts** (`specs/template/plan.md`) | "Done" drifting during implementation — observable done-criteria are agreed before coding and checked one by one at review |
 | **ADRs** (`docs/adr/`) | Re-litigating settled decisions; losing the *why* behind the architecture |
 | **Skills** (`.claude/skills/`) | Reinventing procedures ad hoc, with quality varying per session |
 | **Principle 9** (tests are load-bearing) | The agent editing tests or task lists to make work *appear* done — a failure mode Anthropic observed directly in long-running agents |
