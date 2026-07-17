@@ -19,14 +19,14 @@ Turn the constitution's most critical principles into mechanisms that cannot be 
 - [x] ADR 0001 recording the adoption of harness engineering practices
 - [x] Update README with "What's in the harness and why" section
 
-## Phase 2 — State across sessions
+## Phase 2 — State across sessions ✅
 
 Give agents durable memory of the *work* (specs already cover the *product*).
 
 - [x] `PROGRESS.md` at repo root — structured session log (what was done, what's next, known issues); local and gitignored by decision
 - [x] Session protocol in `.claude/CLAUDE.md`: start = read `PROGRESS.md` + recent `git log`; end = update `PROGRESS.md`
-- [ ] Evolve `specs/template/tasks.md` to per-task status tracking (`pending | in-progress | done | verified`)
-- [ ] `init.sh` template — environment bring-up + health check, run at session start to catch broken state early
+- [x] Evolve `specs/template/tasks.md` to per-task status tracking (`pending | in-progress | done | verified`)
+- [x] `init.sh` template — environment bring-up + health check, run at session start to catch broken state early
 
 ## Phase 3 — Role separation with clean contexts
 
@@ -56,3 +56,4 @@ Guardrails have expiry dates.
 ## Session log
 
 - **2026-07-17 — Phase 1:** implemented in full; `PROGRESS.md` and the session protocol from Phase 2 were pulled forward.
+- **2026-07-17 — Phase 2:** completed — task status lifecycle in the SDD templates, `init.sh` session bootstrap. Decision: `PROGRESS.md` is local-only (gitignored), commits carry no AI attribution.

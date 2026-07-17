@@ -33,7 +33,7 @@
 
 ## Session protocol
 
-- **At session start:** read `PROGRESS.md` and the recent `git log` to understand where the last session left off. If the previous session left something broken, fix that before starting new work. `PROGRESS.md` is local and gitignored — if it doesn't exist yet, create it (title + dated entries with done / next / known issues, newest first).
+- **At session start:** run `./init.sh` (environment bring-up + health check — a failure means inherited broken state), then read `PROGRESS.md` and the recent `git log` to understand where the last session left off. If the previous session left something broken, fix that before starting new work. `PROGRESS.md` is local and gitignored — if it doesn't exist yet, create it (title + dated entries with done / next / known issues, newest first).
 - **At session end:** append an entry to `PROGRESS.md` (done / next / known issues).
 
 ## Mandatory operating principles

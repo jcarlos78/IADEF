@@ -5,6 +5,7 @@
 ---
 
 ## Task 1 — Generate tests from the spec
+**Status:** pending
 **Files:** `tests/exports/test_csv_export.py` (new)
 **Description:** Invoke the `test-generator` skill pointing at `specs/example-feature/spec.md`. Verify traceability (9 criteria → tests).
 **Done when:**
@@ -16,6 +17,7 @@
 ---
 
 ## Task 2 — Record ADR 0003 (CSV streaming)
+**Status:** pending
 **Files:** `docs/adr/0003-csv-streaming.md` (new)
 **Description:** Use the `adr-writer` skill to record the decision between in-memory generation and streaming.
 **Done when:**
@@ -27,6 +29,7 @@
 ---
 
 ## Task 3 — Implement synchronous `csv_exporter`
+**Status:** pending
 **Files:** `src/exports/csv_exporter.py` (new)
 **Description:** Module that takes an iterable of activities and returns a CSV compliant with RFC 4180.
 **Done when:**
@@ -38,6 +41,7 @@
 ---
 
 ## Task 4 — Synchronous HTTP endpoint
+**Status:** pending
 **Files:** `src/exports/handlers.py` (new)
 **Description:** `GET /api/exports/history?from=...&to=...` returns CSV inline for volumes < 10,000 rows.
 **Done when:**
@@ -50,6 +54,7 @@
 ---
 
 ## Task 5 — Async queue for large volumes
+**Status:** pending
 **Files:** `src/exports/async_job.py` (new)
 **Description:** Queue generation when volume > 10,000; persist signed link.
 **Done when:**
@@ -61,6 +66,7 @@
 ---
 
 ## Task 6 — Email with download link
+**Status:** pending
 **Files:** `src/exports/email.py` (new)
 **Description:** Send an email when async generation completes via MCP `_email-service`.
 **Done when:**
@@ -72,6 +78,7 @@
 ---
 
 ## Task 7 — Export UI
+**Status:** pending
 **Files:** `src/ui/settings/ExportPanel.tsx` (new)
 **Description:** Component in "Settings > Export data" with a date picker and a submit button.
 **Done when:**
@@ -83,6 +90,7 @@
 ---
 
 ## Task 8 — Review via the code-reviewer skill
+**Status:** pending
 **Files:** —
 **Description:** Run the `code-reviewer` skill over the full diff. Address any blockers.
 **Done when:**
@@ -94,6 +102,7 @@
 ---
 
 ## Task 9 — Final verification and merge
+**Status:** pending
 **Files:** —
 **Description:** All tests green; human review; merge.
 **Done when:**
@@ -107,7 +116,7 @@
 ## Traceability
 
 | Spec criterion | Task(s) | Status |
-|---|---|---|
+| --- | --- | --- |
 | C1: reach screen | Task 7 | pending |
 | C2: select range | Task 7 | pending |
 | C3: CSV header | Tasks 1, 3 | pending |

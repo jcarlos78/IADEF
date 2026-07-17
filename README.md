@@ -40,6 +40,7 @@ Three native amplifiers wired up and ready:
 │   ├── adr/                   Architecture Decision Records
 │   └── harness-roadmap.md     Phased harness engineering checklist
 ├── PROGRESS.md                Session log (local only, gitignored)
+├── init.sh                    Session bootstrap: bring-up + health check
 ├── src/                       Source code (empty by design)
 ├── tests/                     Tests
 ├── LICENSE                    MIT
@@ -94,6 +95,8 @@ Each piece of the template exists for a specific failure mode of AI-assisted dev
 | **Hooks** (`.claude/hooks/`) | The agent violating critical rules (e.g. committing secrets) under pressure — enforcement is deterministic, not trust-based |
 | **Deny permissions** (`.claude/settings.json`) | The agent reading credentials or running destructive commands, even accidentally |
 | **`PROGRESS.md`** session log | Each session starting blind — context windows die, durable artifacts don't |
+| **`init.sh`** session bootstrap | Building on top of broken inherited state — every session proves the app runs *before* new work |
+| **Task status lifecycle** (`specs/template/tasks.md`) | "Done" meaning "I wrote code" — `done` requires passing tests, `verified` requires independent checking against the spec |
 | **ADRs** (`docs/adr/`) | Re-litigating settled decisions; losing the *why* behind the architecture |
 | **Skills** (`.claude/skills/`) | Reinventing procedures ad hoc, with quality varying per session |
 | **Principle 9** (tests are load-bearing) | The agent editing tests or task lists to make work *appear* done — a failure mode Anthropic observed directly in long-running agents |
