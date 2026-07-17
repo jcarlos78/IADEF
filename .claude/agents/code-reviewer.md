@@ -19,7 +19,7 @@ For each changed file, check:
 
 **(A) Correctness** — logic, edge cases, race conditions, off-by-one, null handling.
 
-**(B) Security** — input validated at boundaries; no secrets introduced; injection, XSS, path traversal.
+**(B) Security** — input validated at boundaries; no secrets introduced; injection, XSS, path traversal. New scanner suppressions (`nosemgrep`, `nosec`, ignore files) outside a dedicated justified commit → automatic blocker (Principle 10). For diffs touching auth, sensitive data, or new dependencies, recommend the `security-reviewer` skill for a dedicated pass.
 
 **(C) Constitution adherence** — every principle honored; violations require explicit justification (ideally via ADR). Pay special attention to Principle 9: tests or task statuses edited to make work appear done → automatic blocker.
 

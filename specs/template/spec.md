@@ -43,6 +43,14 @@ Explicitly list what this feature does **not** do:
 
 - ...
 
+## Security considerations
+
+Answer explicitly — "none" is an acceptable answer, silence is not:
+
+- **Data sensitivity:** what data does this feature touch? (PII, credentials, financial, none)
+- **Authentication / authorization:** who may invoke this behavior? What must be denied, and to whom?
+- **Abuse cases:** how would a hostile user misuse this feature? Each abuse case becomes a **negative acceptance criterion** above (something that must observably NOT happen) — scanners catch code-level flaws; only the spec catches logic-level ones (IDOR, authorization bypass, data leakage between tenants).
+
 ## Dependencies
 
 - Other specs: <links>

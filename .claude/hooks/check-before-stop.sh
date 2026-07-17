@@ -11,6 +11,18 @@ echo "$HOOK_INPUT" | python3 -c 'import json,sys; sys.exit(1 if json.load(sys.st
 
 git diff --quiet && git diff --staged --quiet && exit 0
 
+# Secrets: git-aware scan of the uncommitted changes. Deeper than the
+# PreToolUse regex hook (entropy + full ruleset), and catches files that
+# entered via Bash instead of Write/Edit. Skipped silently when gitleaks is
+# not installed; blocks only on leaks (exit 1), never on tool errors.
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks protect --no-banner --redact >/dev/null 2>&1
+  if [ $? -eq 1 ]; then
+    echo "Stop blocked: gitleaks found secret(s) in the uncommitted changes. Remove them before ending (Constitution Principle 6); run 'gitleaks protect --redact' to see the findings." >&2
+    exit 2
+  fi
+fi
+
 if [ -f package.json ] && grep -q '"test"' package.json; then
   npm test --silent >/dev/null 2>&1 || {
     echo "Stop blocked: uncommitted changes with a failing test suite (npm test). Fix the tests or report the failure explicitly before ending." >&2

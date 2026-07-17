@@ -76,6 +76,14 @@ Deleting or weakening a test, or removing/re-marking a task, to make work *appea
 
 ---
 
+## Principle 10 — Security findings are load-bearing
+
+Suppressing a security-scanner finding (`# nosemgrep`, ignore files, allowlists, lowered severity thresholds) to make a check pass is forbidden. A finding is resolved by fixing the code or upgrading the dependency; a genuine false positive is suppressed in a dedicated commit that explains why it is false. Known-vulnerable dependencies are patched, not pinned and forgotten.
+
+**Why:** the same failure mode as Principle 9, with higher stakes. An agent under pressure to show progress will silence the scanner instead of fixing the vulnerability — and a suppression comment is a one-line edit that makes the problem invisible forever. Scanners are only load-bearing if their output cannot be quietly rewritten.
+
+---
+
 ## Note — The harness has an expiry date
 
 The guardrails in this repository (hooks, permissions, skills, scaffolding) are calibrated to the capabilities of current AI models. **Whenever the project adopts a new model generation, re-examine the harness**: strip pieces that are no longer load-bearing (over-scaffolding holds better models back) and add pieces that newly-possible capabilities warrant. Changes go through the normal mechanism — an ADR. This note creates the trigger; the ADR process already provides the path.

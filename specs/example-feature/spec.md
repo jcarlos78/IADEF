@@ -53,6 +53,15 @@ The application lets an authenticated user request and download a CSV file conta
 - Scheduled/recurring exports
 - Exporting other users' data (admin)
 
+## Security considerations
+
+- **Data sensitivity:** the export contains the user's full activity history (personal + financial data). Treat the generated file and the download link as sensitive.
+- **Authentication / authorization:** only an authenticated user may export, and only their own history. Any request for another user's data is denied — there is no admin path in this feature (see Out of scope).
+- **Abuse cases** (each mapped to a negative acceptance criterion above):
+  - Tampering with the request to export another user's history → covered by "a user only sees their own activities"
+  - Replaying an intercepted async link after expiry → covered by "the async link expires in 24h" (single-use signed token, see Risks)
+  - Hammering the export endpoint to exhaust the worker queue → large exports are queued asynchronously; queue limits are the platform's concern, out of scope here
+
 ## Dependencies
 
 - **Other specs:** authentication system (assumed pre-existing, `specs/auth/`)

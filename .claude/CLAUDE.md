@@ -72,6 +72,7 @@ See `.claude/skills/`:
 
 - `spec-writer` — write SDD specs
 - `code-reviewer` — review the current diff (delegates to the clean-context subagent in `.claude/agents/code-reviewer.md`; never pass it the implementation conversation)
+- `security-reviewer` — security review of the current diff (clean-context subagent in `.claude/agents/security-reviewer.md`); use for changes touching auth, sensitive data, external input, or new dependencies
 - `verifier` — exercise a feature end-to-end against the spec's criteria; the only path to `verified` status
 - `adr-writer` — record architectural decisions
 - `test-generator` — generate tests from a spec

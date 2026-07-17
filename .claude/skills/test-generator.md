@@ -20,6 +20,7 @@ Read `specs/<feature>/spec.md`, especially:
 - The "Use cases" section
 - The "Acceptance criteria" section
 - The "Out of scope" section (to generate negative tests where applicable)
+- The "Security considerations" section (abuse cases → tests proving the abuse fails)
 
 ### 2. Load the test stack
 Check `.claude/CLAUDE.md` or `package.json` / `pyproject.toml` to identify the test framework in use. Do not introduce a new framework.
@@ -31,6 +32,7 @@ For each acceptance criterion, generate one or more tests:
 - **Alternative path test** (variations mentioned in the spec)
 - **Error test** (violated preconditions, invalid inputs)
 - **Edge case test** (numeric limits, empty strings, empty lists)
+- **Abuse case test** (from Security considerations: the test performs the abuse — wrong user, tampered ID, expired token — and asserts it is denied; these prove what must NOT happen)
 
 ### 4. Test file structure
 

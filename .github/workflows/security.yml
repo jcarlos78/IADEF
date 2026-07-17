@@ -1,0 +1,59 @@
+# Outer harness: the hooks in .claude/hooks/ only guard changes made inside
+# the IADE session; this workflow guards everything that reaches the repo,
+# whoever (or whatever) pushed it. Same three scanners as the local layer.
+# Stack-agnostic by design — add your test/lint jobs alongside these.
+name: Security
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  secrets:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history: leaked-then-removed secrets still count
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  sast:
+    name: SAST (semgrep)
+    runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep
+    steps:
+      - uses: actions/checkout@v4
+      - run: semgrep scan --config p/security-audit --config p/owasp-top-ten --config p/secrets --error --metrics=off
+
+  dependencies:
+    name: Dependency scan (osv-scanner)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run osv-scanner
+        # exit 128 = no supported lockfiles found — fine for a fresh template
+        run: |
+          curl -sSL -o osv-scanner https://github.com/google/osv-scanner/releases/latest/download/osv-scanner_linux_amd64
+          chmod +x osv-scanner
+          ./osv-scanner scan -r . || [ $? -eq 128 ]
+
+  # Optional: IaC scanning for projects with Terraform / Dockerfiles / k8s
+  # manifests. Uncomment to enable (same underscore-style convention as
+  # .mcp.json — disabled until you opt in).
+  # iac:
+  #   name: IaC scan (trivy)
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: aquasecurity/trivy-action@master
+  #       with:
+  #         scan-type: config
+  #         exit-code: "1"

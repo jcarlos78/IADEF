@@ -26,15 +26,20 @@ Three native amplifiers wired up and ready:
 │   ├── hooks/                 Deterministic enforcement scripts
 │   │   ├── block-secrets.sh   Blocks secrets from entering the repo
 │   │   ├── check-edited-file.sh  Per-file syntax check after every edit
-│   │   └── check-before-stop.sh  Blocks ending a turn with red tests
+│   │   ├── check-security.sh  SAST (semgrep) + dependency scan (osv-scanner) per edit
+│   │   └── check-before-stop.sh  Blocks ending a turn with red tests or leaked secrets
 │   ├── agents/                Subagents with clean contexts
-│   │   └── code-reviewer.md   Independent reviewer (sees only diff + docs)
+│   │   ├── code-reviewer.md   Independent reviewer (sees only diff + docs)
+│   │   └── security-reviewer.md  Security reviewer (authz logic, suppression audit)
 │   └── skills/                Available skills
 │       ├── spec-writer.md     Writes SDD specs
 │       ├── code-reviewer.md   Reviews the current diff
+│       ├── security-reviewer.md  Security review of the current diff
 │       ├── verifier.md        Exercises features end-to-end vs. the spec
 │       ├── adr-writer.md      Writes Architecture Decision Records
 │       └── test-generator.md  Generates tests from specs
+├── .github/workflows/         Outer harness: CI security scans (push/PR)
+├── .pre-commit-config.yaml    Same scanners for human committers
 ├── .mcp.json                  Model Context Protocol config
 ├── specs/                     Spec-Driven Development
 │   ├── constitution.md        Non-negotiable principles
@@ -69,6 +74,13 @@ rm -rf .git && git init
 - Adapt `specs/constitution.md` to your team's principles
 - Edit `.mcp.json` to point at the systems you actually use (or remove servers you don't)
 - Keep or drop skills as needed
+- Install the security scanners so the inline security layer activates (hooks skip silently without them; CI still enforces):
+
+  ```bash
+  brew install semgrep gitleaks osv-scanner   # macOS
+  # or: pipx install semgrep && go install github.com/zricethezav/gitleaks/v8@latest ...
+  pipx install pre-commit && pre-commit install   # optional: same scanners for human commits
+  ```
 
 ### 3. Open in your agentive IDE
 
@@ -107,8 +119,13 @@ Each piece of the template exists for a specific failure mode of AI-assisted dev
 | **ADRs** (`docs/adr/`) | Re-litigating settled decisions; losing the *why* behind the architecture |
 | **Skills** (`.claude/skills/`) | Reinventing procedures ad hoc, with quality varying per session |
 | **Principle 9** (tests are load-bearing) | The agent editing tests or task lists to make work *appear* done — a failure mode Anthropic observed directly in long-running agents |
+| **Security hooks** (`check-security.sh`, gitleaks in the Stop hook) | Vulnerable code or dependencies entering silently — semgrep/osv-scanner findings block the edit and feed back while context is fresh |
+| **Principle 10** (security findings are load-bearing) | The agent silencing scanners (`# nosemgrep`, ignore files) instead of fixing the vulnerability — suppressions only in dedicated, justified commits |
+| **Security considerations** in specs (`specs/template/spec.md`) | Logic-level flaws no scanner sees (IDOR, authz bypass, tenant leakage) — abuse cases become negative acceptance criteria, tested and verified |
+| **`security-reviewer` subagent** (`.claude/agents/`) | Scanner blind spots at review time — authorization reasoning, abuse-case coverage, and diffs that quietly disarm the scanners |
+| **CI + pre-commit** (`.github/workflows/security.yml`, `.pre-commit-config.yaml`) | Hooks only guard the agent's session — CI and pre-commit extend the same scanners to every commit from anyone |
 
-The adoption of these practices is recorded in [ADR 0001](docs/adr/0001-adopt-harness-engineering-practices.md).
+The adoption of these practices is recorded in [ADR 0001](docs/adr/0001-adopt-harness-engineering-practices.md) and [ADR 0002](docs/adr/0002-adopt-security-harness.md) (security harness).
 
 ## Philosophy
 
@@ -122,6 +139,8 @@ Vibe coding works best with guardrails. This template enforces a few non-negotia
 6. **Secrets never enter the repo** — even in example files
 7. **Atomic changes** — one concern per commit/PR
 8. **Fail loudly, not silently** — no swallowed errors
+9. **Tests and task lists are load-bearing** — never edited to make work *appear* done
+10. **Security findings are load-bearing** — scanners are fixed against, never silenced
 
 You can relax any of these as your team matures — but only via an explicit ADR.
 

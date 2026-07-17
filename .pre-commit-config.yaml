@@ -1,0 +1,25 @@
+# Shares the harness with humans: the hooks in .claude/hooks/ only fire for
+# the agent's tool calls; pre-commit runs the same scanners for anyone who
+# commits. Install with: pipx install pre-commit && pre-commit install
+# Update pinned revs periodically with: pre-commit autoupdate
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.24.3
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/semgrep/pre-commit
+    rev: v1.117.0
+    hooks:
+      - id: semgrep
+        args:
+          [
+            scan,
+            --config,
+            p/security-audit,
+            --config,
+            p/secrets,
+            --error,
+            --metrics=off,
+            --quiet,
+          ]

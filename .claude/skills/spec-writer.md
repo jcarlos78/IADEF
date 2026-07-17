@@ -43,6 +43,9 @@ Verifiable list (each item testable):
 ## Out of scope
 Explicitly list what this feature does NOT do.
 
+## Security considerations
+Data sensitivity, authentication/authorization, abuse cases. "None" is acceptable; silence is not. Each abuse case becomes a negative acceptance criterion.
+
 ## Dependencies
 Other specs, systems, or MCPs required.
 

@@ -34,7 +34,7 @@ For each acceptance criterion and each sprint contract item:
 - **API:** issue real requests (`curl`), assert on status, headers, and body.
 - **CLI:** run the real command; assert on output and exit code.
 
-Verify the *negative* cases too (the 401s, the empty states, the limits) — they are where implementations quietly lie.
+Verify the *negative* cases too (the 401s, the empty states, the limits) — they are where implementations quietly lie. That includes the spec's **Security considerations** abuse cases: actually attempt the abuse against the running app (request another user's resource, replay an expired link) and confirm it is denied. Authorization bypasses live below the UI — no scanner or unit test observes them the way this does.
 
 ### 4. Record the verdict
 
