@@ -17,10 +17,10 @@ jobs:
     name: Secret scan (gitleaks)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           fetch-depth: 0 # full history: leaked-then-removed secrets still count
-      - uses: gitleaks/gitleaks-action@v2
+      - uses: gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7 # v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -30,14 +30,14 @@ jobs:
     container:
       image: semgrep/semgrep
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
       - run: semgrep scan --config p/security-audit --config p/owasp-top-ten --config p/secrets --error --metrics=off
 
   dependencies:
     name: Dependency scan (osv-scanner)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
       - name: Run osv-scanner
         # exit 128 = no supported lockfiles found — fine for a fresh template
         run: |
@@ -47,7 +47,8 @@ jobs:
 
   # Optional: IaC scanning for projects with Terraform / Dockerfiles / k8s
   # manifests. Uncomment to enable (same underscore-style convention as
-  # .mcp.json — disabled until you opt in).
+  # .mcp.json — disabled until you opt in). Pin the action to a commit SHA
+  # when enabling, as above.
   # iac:
   #   name: IaC scan (trivy)
   #   runs-on: ubuntu-latest
