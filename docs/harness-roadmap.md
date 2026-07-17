@@ -44,12 +44,12 @@ An agent that wrote the code is biased when evaluating it.
 - [x] `PostToolUse` hook: per-file syntax checks after edits (`check-edited-file.sh`; sh/json/py out of the box, extend per stack)
 - [x] `Stop` hook: block ending a turn with uncommitted changes and a failing test suite (`check-before-stop.sh`)
 
-## Phase 5 — Harness hygiene
+## Phase 5 — Harness hygiene ✅
 
 Guardrails have expiry dates.
 
-- [ ] Stop pinning a model in `.claude/settings.json` (or pin latest with a comment explaining the trade-off)
-- [ ] Constitution note: re-examine the harness on every new model generation — remove scaffolding that is no longer load-bearing (via ADR, mechanism already exists)
+- [x] Stop pinning a model in `.claude/settings.json` — the template now inherits the user's default, which tracks current models
+- [x] Constitution note: re-examine the harness on every new model generation — remove scaffolding that is no longer load-bearing (via ADR, mechanism already exists)
 
 ---
 
@@ -59,3 +59,4 @@ Guardrails have expiry dates.
 - **2026-07-17 — Phase 2:** completed — task status lifecycle in the SDD templates, `init.sh` session bootstrap. Decision: `PROGRESS.md` is local-only (gitignored), commits carry no AI attribution.
 - **2026-07-17 — Phase 3:** completed — `code-reviewer` split into orchestrating skill + clean-context subagent (`.claude/agents/`); sprint contract section in plan template and example.
 - **2026-07-17 — Phase 4:** completed — `verifier` skill, `_playwright` MCP option, PostToolUse per-file checks, Stop hook gating on red tests.
+- **2026-07-17 — Phase 5:** completed — model unpinned from settings, harness-expiry note in the constitution. **All roadmap phases done.** Future work: new phases get added here, not to a new document.
