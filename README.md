@@ -42,8 +42,7 @@ Three native amplifiers wired up and ready:
 │   ├── template/              Spec / plan / tasks templates
 │   └── example-feature/       Complete example (spec → plan → tasks)
 ├── docs/                      Project documentation
-│   ├── adr/                   Architecture Decision Records
-│   └── harness-roadmap.md     Phased harness engineering checklist
+│   └── adr/                   Architecture Decision Records
 ├── PROGRESS.md                Session log (local only, gitignored)
 ├── init.sh                    Session bootstrap: bring-up + health check
 ├── src/                       Source code (empty by design)
@@ -109,7 +108,7 @@ Each piece of the template exists for a specific failure mode of AI-assisted dev
 | **Skills** (`.claude/skills/`) | Reinventing procedures ad hoc, with quality varying per session |
 | **Principle 9** (tests are load-bearing) | The agent editing tests or task lists to make work *appear* done — a failure mode Anthropic observed directly in long-running agents |
 
-The rollout of these practices is phased and tracked in [`docs/harness-roadmap.md`](docs/harness-roadmap.md) — that checklist is itself a harness artifact: it survives context resets, so any session knows what's done and what's next.
+The adoption of these practices is recorded in [ADR 0001](docs/adr/0001-adopt-harness-engineering-practices.md).
 
 ## Philosophy
 

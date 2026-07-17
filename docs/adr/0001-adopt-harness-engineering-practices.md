@@ -9,7 +9,7 @@ GAIDE's guardrails were, until now, *instructions*: the constitution asks the ag
 
 ## Decision
 
-Incorporate harness engineering into GAIDE in phases, tracked in [`docs/harness-roadmap.md`](../harness-roadmap.md):
+Incorporate harness engineering into GAIDE in phases:
 
 1. **Deterministic enforcement** — hooks and deny-permissions turn critical constitution principles into mechanisms (starting with a `PreToolUse` secret-blocking hook and expanded deny rules).
 2. **State across sessions** — `PROGRESS.md` as a session log; session start/end protocol in `CLAUDE.md`.
